@@ -15,7 +15,7 @@ export function load(configPath, options = {envVariable: 'NODE_ENV', logger: con
   _.merge(config, require(basePath));
 
   if (process.env[options.envVariable]) {
-    const envCfgPath = path.join(__dirname, 'environments', `${process.env[options.envVariable]}.json`);
+    const envCfgPath = path.join(configPath, 'environments', `${process.env[options.envVariable]}.json`);
     if (fs.existsSync(envCfgPath)) {
       options.logger(`Adding env config '${envCfgPath}'`);
       _.merge(config, require(envCfgPath));
@@ -24,7 +24,7 @@ export function load(configPath, options = {envVariable: 'NODE_ENV', logger: con
     }
   }
 
-  const customConfigPath = path.join(__dirname, 'config.json');
+  const customConfigPath = path.join(configPath, 'config.json');
   if (fs.existsSync(customConfigPath)) {
     options.logger(`Adding custom config '${customConfigPath}'`);
     _.merge(config, require(customConfigPath));

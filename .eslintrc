@@ -1,0 +1,57 @@
+{
+  "parser"  : "babel-eslint",
+  "plugins": [
+    "import"
+  ],
+  "extends" : ["airbnb"],
+  "rules": {
+    // Soften some rules.
+    "consistent-return": 0, // if(err) return err
+    "camelcase": 0,
+    "no-console": 0,
+    "max-len": [2, 300, 4, { "ignoreTrailingComments": true, "ignoreUrls": true}],
+    //"max-len": {"ignoreComment": true, "ignoreUrl": true, "ignorePattern" : "^\\s*var\\s.+=\\s*require\\s*\\("},
+    "comma-dangle": 0, // Nobody cares about commas.
+    "default-case": 0, // Required default case is nonsense.
+    "react/prefer-stateless-function": 0,
+    "new-cap": [2, {"capIsNew": false, "newIsCap": true}], // For Record() etc.
+    "no-floating-decimal": 0, // .5 is just fine.
+    "no-param-reassign": 0, // We love param reassignment.
+    "no-shadow": 0, // Shadowing is a nice language feature.
+    // eslint-plugin-import
+    "import/no-unresolved": [2, {"commonjs": true}],
+    "import/named": 2,
+    "import/default": 2,
+    "import/namespace": 2,
+    "import/export": 2,
+    "global-require": 0,
+    "object-curly-spacing": 0,
+    "react/jsx-first-prop-new-line": 0,
+    "no-underscore-dangle": 0 // no errors when using this._foo()
+  },
+  "globals": {
+    "after": false,
+    "afterEach": false,
+    "before": false,
+    "beforeEach": false,
+    "describe": false,
+    "it": false,
+    "require": false
+  },
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      "\\.json$"
+    ],
+    "import/parser": "babel-eslint",
+    "import/resolve": {
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".json"
+      ]
+    }
+  }
+}
+
+

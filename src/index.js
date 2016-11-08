@@ -5,7 +5,7 @@ import dottie from 'dottie';
 
 const config = {};
 
-export function load(configPath, options = {envVariable: 'NODE_ENV', logger: console.log, envDelimiter: '__'}) {
+export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log, envDelimiter = '__'}) {
 
   const basePath = path.join(configPath, 'base.json');
   if (!fs.existsSync(basePath)) {
@@ -14,30 +14,30 @@ export function load(configPath, options = {envVariable: 'NODE_ENV', logger: con
 
   _.merge(config, require(basePath));
 
-  if (process.env[options.envVariable]) {
-    const envCfgPath = path.join(configPath, 'environments', `${process.env[options.envVariable]}.json`);
+  if (process.env[envVariable]) {
+    const envCfgPath = path.join(configPath, 'environments', `${process.env[envVariable]}.json`);
     if (fs.existsSync(envCfgPath)) {
-      options.logger(`Adding env config '${envCfgPath}'`);
+      logger(`Adding env config '${envCfgPath}'`);
       _.merge(config, require(envCfgPath));
     } else {
-      options.logger(`Env config '${envCfgPath}' not found.`);
+      logger(`Env config '${envCfgPath}' not found.`);
     }
   }
 
   const customConfigPath = path.join(configPath, 'config.json');
   if (fs.existsSync(customConfigPath)) {
-    options.logger(`Adding custom config '${customConfigPath}'`);
+    logger(`Adding custom config '${customConfigPath}'`);
     _.merge(config, require(customConfigPath));
   } else {
-    options.logger(`Custom config '${customConfigPath}' not found.`);
+    logger(`Custom config '${customConfigPath}' not found.`);
   }
 
   const paths = dottie.paths(config);
   let key;
   paths.forEach(p => {
-    key = p.replace('.', options.envDelimiter).toUpperCase();
+    key = p.replace('.', envDelimiter).toUpperCase();
     if ({}.hasOwnProperty.call(process.env, key)) {
-      options.logger(`Overriding settings from env variable ${key}`);
+      logger(`Overriding settings from env variable ${key}`);
       dottie.set(config, p, (process.env[key] === 'true' || process.env[key] === 'false') ? process.env[key] === 'true' : process.env[key]);
     }
   });

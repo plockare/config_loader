@@ -1,5 +1,5 @@
 {
-  "name": "config-loader",
+  "name": "cfg-loader",
   "version": "0.0.1",
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -26,5 +26,16 @@
   },
   "engines": {
     "node": "6.x.x"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plockare/config_loader.git"
+  },
+  "author": "Karel Ploc <karelploc@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plockare/config_loader/issues"
+  },
+  "homepage": "https://github.com/plockare/config_loader#readme",
+  "description": ""
 }

@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "dottie": "^1.1.1",
-    "kafka-node": "^1.0.5",
     "lodash": "^4.16.6"
   },
   "main": "./lib/index.js",

@@ -5,7 +5,7 @@ import dottie from 'dottie';
 
 const config = {};
 
-export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log, envDelimiter = '__'}) {
+export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log, envDelimiter = '__'} = {}) {
 
   const basePath = path.join(configPath, 'base.json');
   if (!fs.existsSync(basePath)) {

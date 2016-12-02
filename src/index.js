@@ -35,7 +35,7 @@ export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log
   const paths = dottie.paths(config);
   let key;
   paths.forEach(p => {
-    key = p.replace('.', envDelimiter).toUpperCase();
+    key = p.replace(/\./g, envDelimiter).toUpperCase();
     if ({}.hasOwnProperty.call(process.env, key)) {
       logger(`Overriding settings from env variable ${key}`);
       dottie.set(config, p, (process.env[key] === 'true' || process.env[key] === 'false') ? process.env[key] === 'true' : process.env[key]);

@@ -1,6 +1,6 @@
 {
   "name": "cfg-loader",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.0",
@@ -24,7 +24,7 @@
     "compile": "babel -d ./lib ./src --copy-files"
   },
   "engines": {
-    "node": "6.x.x"
+    "node": ">= 6.0.0"
   },
   "repository": {
     "type": "git",

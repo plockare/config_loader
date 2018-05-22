@@ -36,9 +36,18 @@ export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log
   let key;
   paths.forEach(p => {
     key = p.replace(/\./g, envDelimiter).toUpperCase();
-    if ({}.hasOwnProperty.call(process.env, key)) {
+    if ({}.hasOwnProperty.call(process.env, key) || {}.hasOwnProperty.call(process.env, `${key}_FILE`)) {
       logger(`Overriding settings from env variable ${key}`);
-      dottie.set(config, p, (process.env[key] === 'true' || process.env[key] === 'false') ? process.env[key] === 'true' : process.env[key]);
+      let value;
+      if ({}.hasOwnProperty.call(process.env, `${key}_FILE`)) {
+        logger(`Reading from file ${key}`);
+        value = fs.readFileSync(process.env[`${key}_FILE`]);
+        value = value && value.toString().replace('\n', '');
+      } else {
+        value = process.env[key];
+      }
+
+      dottie.set(config, p, (value === 'true' || value === 'false') ? value === 'true' : value);
     }
   });
 

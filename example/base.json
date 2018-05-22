@@ -1,0 +1,11 @@
+{
+  "test": "world",
+  "attributes": [
+    {
+      "test": "a"
+    },
+    {
+      "test": "b"
+    }
+  ]
+}

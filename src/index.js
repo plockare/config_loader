@@ -5,7 +5,7 @@ import dottie from 'dottie';
 
 const config = {};
 
-export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log, envDelimiter = '__'} = {}) {
+export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log, envDelimiter = '__', specialItems = []} = {}) {
 
   const basePath = path.join(configPath, 'base.json');
   if (!fs.existsSync(basePath)) {
@@ -33,6 +33,20 @@ export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log
   }
 
   const paths = dottie.paths(config);
+  setParams(paths, envDelimiter, logger);
+
+  const specialPaths = specialItems.reduce(
+    (prev, curr) => {
+      const variables = Object
+        .keys(process.env)
+        .filter(key => ~key.indexOf(curr));
+      return prev.concat(variables);
+    },
+    []);
+  setParams(specialPaths, envDelimiter, logger);
+}
+
+const setParams = (paths, envDelimiter, logger) => {
   let key;
   paths.forEach(p => {
     key = p.replace(/\./g, envDelimiter).toUpperCase();
@@ -46,11 +60,9 @@ export function load(configPath, {envVariable = 'NODE_ENV', logger = console.log
       } else {
         value = process.env[key];
       }
-
-      dottie.set(config, p, (value === 'true' || value === 'false') ? value === 'true' : value);
+      dottie.set(config, p.replace(new RegExp(`${envDelimiter}`, 'g'), '.').toLowerCase(), (value === 'true' || value === 'false') ? value === 'true' : value);
     }
   });
-
-}
+};
 
 export default config;
